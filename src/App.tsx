@@ -12,6 +12,7 @@ import TableSection from "./components/TableSection/TableSection";
 import { Alert, Spinner } from "flowbite-react";
 import { SpinnerTheme } from "./Custom/Themes";
 import { HiInformationCircle } from "react-icons/hi";
+import WatchListDrawer from "./components/Drawer/Drawer";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,8 @@ function App() {
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const perPage = 10;
+
+  const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
     const fetchCryptos = async () => {
@@ -69,6 +72,8 @@ function App() {
             currentPage={currentPage}
           />
         )}
+
+        <WatchListDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
       </main>
     </>
   );

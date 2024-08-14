@@ -5,13 +5,16 @@ const initialState: CryptosinWatchList[] = JSON.parse(
   localStorage.getItem("watchingCryptos") || "[]"
 );
 
+console.log(initialState);
+
 const watchingCryptosSlice = createSlice({
   name: "watchingCryptos",
   initialState,
   reducers: {
     watchCrypto: (state, action: PayloadAction<CryptosinWatchList>) => {
-      state.push(action.payload);
-      localStorage.setItem("watchingCryptos", JSON.stringify(state));
+      const newState = [...state, action.payload];
+      localStorage.setItem("watchingCryptos", JSON.stringify(newState));
+      return newState;
     },
 
     removeCryptoFromWatchList: (

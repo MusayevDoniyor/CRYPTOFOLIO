@@ -25,6 +25,8 @@ export default function TableSection({
     (state: any) => state.watchingCryptosReducer
   );
 
+  const currency = useSelector((state: any) => state.currencyReducer.currency);
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -90,7 +92,13 @@ export default function TableSection({
 
                 <Table.Cell>
                   <span className="font-normal text-sm">
-                    ${crypto.current_price.toLocaleString()}
+                    {currency === "USD"
+                      ? "$"
+                      : currency === "AED"
+                      ? "د.إ"
+                      : "₺"}
+                    {"   "}
+                    {crypto.current_price.toLocaleString()}
                   </span>
                 </Table.Cell>
 
@@ -100,7 +108,7 @@ export default function TableSection({
                       onClick={() => handleAddToWatchList(crypto)}
                       className={`size-6 cursor-pointer ${
                         isCryptoInWatchList(crypto.symbol)
-                          ? "text-red-600"
+                          ? "text-emerald-500"
                           : "text-white"
                       }`}
                     />
@@ -108,16 +116,23 @@ export default function TableSection({
                     <span
                       className={`${
                         crypto.price_change_percentage_24h >= 0
-                          ? "text-green-500"
-                          : "text-red-500"
+                          ? "text-[#0ECB81]"
+                          : "text-[#FF0000]"
                       }`}
                     >
-                      {crypto.price_change_percentage_24h.toFixed(2)}%
+                      {crypto.price_change_percentage_24h > 0
+                        ? `+${crypto.price_change_percentage_24h}`
+                        : crypto.price_change_percentage_24h}
+                      %
                     </span>
                   </div>
                 </Table.Cell>
 
-                <Table.Cell>${crypto.market_cap.toLocaleString()}</Table.Cell>
+                <Table.Cell>
+                  {currency === "USD" ? "$" : currency === "AED" ? "د.إ" : "₺"}
+                  {"   "}
+                  {crypto.market_cap.toLocaleString()}
+                </Table.Cell>
               </Table.Row>
             ))
           )}

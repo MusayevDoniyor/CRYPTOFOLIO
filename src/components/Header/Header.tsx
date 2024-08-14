@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <header className="shadow-custom3 border-b-2 border-white flex justify-center text-white py-4 px-7 items-center sticky top-1 bg-[#14161a] z-50">
+    <header className="shadow-custom3 border-b-2 border-white flex justify-center text-white py-4 px-7 items-center sticky top-1 bg-[#14161a] z-30">
       <div className="max-w-screen-xl w-full flex justify-between items-center">
         <div>
           <a
