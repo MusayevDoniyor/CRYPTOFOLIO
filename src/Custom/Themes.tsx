@@ -115,3 +115,139 @@ export const customButtonTheme = {
     customSize: "py-1 px-6 text-base",
   },
 };
+
+export const CarouselTheme = {
+  root: {
+    base: "relative h-full w-full",
+
+    leftControl:
+      "absolute left-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none",
+    rightControl:
+      "absolute right-0 top-0 flex h-full items-center justify-center px-4 focus:outline-none",
+  },
+  indicators: {
+    active: {
+      off: "bg-blue-400 hover:bg-blue-600 dark:bg-gray-800/50 dark:hover:bg-gray-800",
+      on: "bg-blue-700 dark:bg-gray-800",
+    },
+    base: "h-3 w-3 rounded-full",
+    wrapper: "absolute bottom-5 left-1/2 flex -translate-x-1/2 space-x-3",
+  },
+  item: {
+    base: "absolute left-1/2 top-1/2 block w-full -translate-x-1/2 -translate-y-1/2",
+    wrapper: {
+      off: "w-full flex-shrink-0 transform cursor-default snap-center",
+      on: "w-full flex-shrink-0 transform cursor-grab snap-center",
+    },
+  },
+  control: {
+    base: "inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 group-hover:bg-blue-600 group-focus:outline-none group-focus:ring-4 group-focus:ring-white dark:bg-gray-800/30 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70 sm:h-10 sm:w-10",
+    icon: "h-5 w-5 text-white dark:text-gray-800 sm:h-6 sm:w-6",
+  },
+  scrollContainer: {
+    base: "flex h-full snap-mandatory overflow-y-hidden overflow-x-scroll scroll-smooth rounded-lg",
+    snap: "snap-x",
+  },
+};
+
+export const TableTheme = {
+  root: {
+    base: "w-full text-left text-sm text-white dark:text-gray-400",
+    shadow:
+      "absolute left-0 top-0 -z-10 h-full w-full rounded-lg bg-[#14161A] drop-shadow-md dark:bg-black",
+    wrapper: "relative",
+  },
+  body: {
+    base: "group/body",
+    cell: {
+      base: "px-7 py-4 group-first/body:group-first/row:first:rounded-tl-lg group-first/body:group-first/row:last:rounded-tr-lg group-last/body:group-last/row:first:rounded-bl-lg group-last/body:group-last/row:last:rounded-br-lg",
+    },
+  },
+  head: {
+    base: "group/head text-xs  uppercase text-black dark:text-gray-400",
+    cell: {
+      base: "bg-[#87CEEB] px-6 py-3 group-first/head:first:rounded-tl-sm group-first/head:last:rounded-tr-sm dark:bg-gray-700 font-bold",
+    },
+  },
+  row: {
+    base: "group/row",
+    hovered: "hover:bg-gray-50 dark:hover:bg-gray-600",
+    striped:
+      "odd:bg-[#14161A] even:bg-gray-50 odd:dark:bg-gray-800 even:dark:bg-gray-700",
+  },
+};
+
+export const SpinnerTheme = {
+  base: "inline animate-spin text-gray-200",
+  color: {
+    failure: "fill-red-600",
+    gray: "fill-gray-600",
+    info: "fill-cyan-600",
+    pink: "fill-pink-600",
+    purple: "fill-purple-600",
+    success: "fill-green-500",
+    warning: "fill-yellow-400",
+  },
+  light: {
+    off: {
+      base: "dark:text-gray-600",
+      color: {
+        failure: "",
+        gray: "dark:fill-gray-300",
+        info: "",
+        pink: "",
+        purple: "",
+        success: "",
+        warning: "",
+      },
+    },
+    on: {
+      base: "",
+      color: {
+        failure: "",
+        gray: "",
+        info: "",
+        pink: "",
+        purple: "",
+        success: "",
+        warning: "",
+      },
+    },
+  },
+  size: {
+    xs: "h-3 w-3",
+    sm: "h-4 w-4",
+    md: "h-6 w-6",
+    lg: "h-8 w-8",
+    xl: "h-10 w-10",
+    customSpinnerSize: "h-14 w-14",
+  },
+};
+
+export const PaginationTheme = {
+  base: "",
+  layout: {
+    table: {
+      base: "text-sm text-gray-700 dark:text-gray-400",
+      span: "font-semibold text-gray-900 dark:text-white",
+    },
+  },
+  pages: {
+    base: "xs:mt-0 mt-2 inline-flex items-center -space-x-px",
+    showIcon: "inline-flex",
+    previous: {
+      base: "ml-0 rounded-lg px-3 py-2 leading-tight text-gray-500 enabled:text-[#87CEEB]",
+      icon: "h-5 w-5",
+    },
+    next: {
+      base: "rounded-lg px-3 py-2 leading-tight text-gray-500 enabled:text-[#87CEEB]",
+      icon: "h-5 w-5",
+    },
+    selector: {
+      base: "w-12 py-3 leading-tight text-[#87CEEB] dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 enabled:dark:hover:bg-gray-700 enabled:dark:hover:text-white rounded-full",
+      active:
+        "bg-gray-300 rounded-full text-cyan-600 hover:bg-cyan-100 hover:text-cyan-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white",
+      disabled: "cursor-not-allowed opacity-50",
+    },
+  },
+};

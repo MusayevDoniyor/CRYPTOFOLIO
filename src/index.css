@@ -18,9 +18,14 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @layer base {
   body {
     max-width: 1920px;
     background-color: #14161a;
+    color: white;
   }
 }
