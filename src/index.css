@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.custom-shadow {
+  @apply shadow-custom1 shadow-custom2 shadow-custom3;
+}
+
+@layer utilities {
+  .shadow-custom1 {
+    box-shadow: 0px 1px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+  .shadow-custom2 {
+    box-shadow: 0px 4px 5px 0 rgba(0, 0, 0, 0.14);
+  }
+  .shadow-custom3 {
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@layer base {
+  body {
+    max-width: 1920px;
+    background-color: #14161a;
+  }
+}
