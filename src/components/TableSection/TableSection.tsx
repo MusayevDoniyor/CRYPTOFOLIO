@@ -106,7 +106,9 @@ export default function TableSection({
                     />
                     <div className="flex flex-col gap-1 font-normal">
                       <h2 className="text-xl text-white">
-                        {crypto.symbol.toUpperCase()}
+                        <a href={`/${crypto.name.toLowerCase()}`}>
+                          {crypto.symbol.toUpperCase()}
+                        </a>
                       </h2>
                       <h3 className="text-[#A9A9A9] text-sm">{crypto.name}</h3>
                     </div>
