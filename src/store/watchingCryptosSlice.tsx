@@ -1,23 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { CryptosinWatchList } from "../types/Types";
+import { Cryptos, CryptosinWatchList } from "../types/Types";
 
-const initialState: CryptosinWatchList[] = JSON.parse(
-  localStorage.getItem("watchingCryptos") || "[]"
-);
+const loadInitialState = (): CryptosinWatchList[] => {
+  const storedData = localStorage.getItem("watchingCryptos");
+  return storedData ? JSON.parse(storedData) : [];
+};
+
+const initialState: CryptosinWatchList[] = loadInitialState();
 
 const watchingCryptosSlice = createSlice({
   name: "watchingCryptos",
   initialState,
   reducers: {
-    watchCrypto: (state, action: PayloadAction<CryptosinWatchList>) => {
-      const newState = [...state, action.payload];
-      localStorage.setItem("watchingCryptos", JSON.stringify(newState));
-      return newState;
+    watchCrypto: (state, action: PayloadAction<Cryptos>) => {
+      if (!state.some((crypto) => crypto.symbol === action.payload.symbol)) {
+        state.push(action.payload);
+        localStorage.setItem("watchingCryptos", JSON.stringify(state));
+      }
     },
-
     removeCryptoFromWatchList: (
       state,
-      action: PayloadAction<CryptosinWatchList>
+      action: PayloadAction<{ symbol: string }>
     ) => {
       const updatedState = state.filter(
         (crypto) => crypto.symbol !== action.payload.symbol
