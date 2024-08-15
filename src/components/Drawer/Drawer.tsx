@@ -1,18 +1,16 @@
 import { Drawer } from "flowbite-react";
 import { CryptosinWatchList, DrawerProps } from "../../types/Types";
 import { DrawerTheme } from "../../Custom/Themes";
-import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { removeCryptoFromWatchList } from "../../store/watchingCryptosSlice";
 import Swal from "sweetalert2";
 
 export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
-  const handleClose = () => setIsOpen(false);
+  const dispatch = useDispatch();
 
-  const [watchingCryptos, setWatchingCryptos] = useState<CryptosinWatchList[]>(
-    () => {
-      const storedCryptos = localStorage.getItem("watchingCryptos");
-      return storedCryptos ? JSON.parse(storedCryptos) : [];
-    }
+  const watchingCryptos = useSelector(
+    (state: { watchingCryptosReducer: CryptosinWatchList[] }) =>
+      state.watchingCryptosReducer
   );
 
   const currency = useSelector(
@@ -20,7 +18,9 @@ export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
       state.currencyReducer.currency
   );
 
-  const removeFromWatchList = (symbol: string) => {
+  const handleClose = () => setIsOpen(false);
+
+  const handleRemove = (symbol: string) => {
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -28,15 +28,8 @@ export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
       showConfirmButton: false,
       timer: 1500,
     });
-    const updatedList = watchingCryptos.filter(
-      (crypto) => crypto.symbol !== symbol
-    );
-    setWatchingCryptos(updatedList);
+    dispatch(removeCryptoFromWatchList({ symbol }));
   };
-
-  useEffect(() => {
-    localStorage.setItem("watchingCryptos", JSON.stringify(watchingCryptos));
-  }, [watchingCryptos]);
 
   return (
     <Drawer
@@ -75,7 +68,7 @@ export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
 
                 <button
                   className="bg-[#FF0000] text-white py-0.5 px-3 font-normal text-xl"
-                  onClick={() => removeFromWatchList(crypto.symbol)}
+                  onClick={() => handleRemove(crypto.symbol)}
                 >
                   Remove
                 </button>
