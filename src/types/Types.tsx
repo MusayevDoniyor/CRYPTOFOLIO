@@ -1,5 +1,3 @@
-import { SetStateAction } from "react";
-
 export interface CryptosinWatchList {
   image: string;
   symbol: string;
@@ -15,4 +13,9 @@ export interface Cryptos {
   current_price: number;
   price_change_percentage_24h: number;
   market_cap: number;
+}
+
+export interface DrawerProps {
+  isOpen: boolean;
+  setIsOpen: any;
 }

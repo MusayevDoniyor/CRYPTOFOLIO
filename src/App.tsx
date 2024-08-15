@@ -1,5 +1,5 @@
 import api from "./api/api";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getCryptos,
@@ -25,7 +25,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const perPage = 10;
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const fetchCryptos = async () => {
@@ -47,7 +47,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      <Header isOpen={isOpen} setIsOpen={setIsOpen} />
 
       <main className="min-h-screen">
         <HeroSection />

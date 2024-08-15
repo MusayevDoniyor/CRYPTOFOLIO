@@ -5,8 +5,6 @@ const initialState: CryptosinWatchList[] = JSON.parse(
   localStorage.getItem("watchingCryptos") || "[]"
 );
 
-console.log(initialState);
-
 const watchingCryptosSlice = createSlice({
   name: "watchingCryptos",
   initialState,

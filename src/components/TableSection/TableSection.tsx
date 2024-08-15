@@ -1,5 +1,5 @@
-import { Pagination, Table } from "flowbite-react";
-import { PaginationTheme, TableTheme } from "../../Custom/Themes";
+import { Pagination, Table, TextInput } from "flowbite-react";
+import { InputTheme, PaginationTheme, TableTheme } from "../../Custom/Themes";
 import { IoEye } from "react-icons/io5";
 import { Cryptos, CryptosinWatchList } from "../../types/Types";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,6 +7,7 @@ import {
   removeCryptoFromWatchList,
   watchCrypto,
 } from "../../store/watchingCryptosSlice";
+import { useState } from "react";
 
 interface TableSectionProps {
   cryptos: Cryptos[];
@@ -20,6 +21,7 @@ export default function TableSection({
   setCurrentPage,
 }: TableSectionProps) {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
 
   const watchingCryptos: CryptosinWatchList[] = useSelector(
     (state: any) => state.watchingCryptosReducer
@@ -51,8 +53,29 @@ export default function TableSection({
     }
   };
 
+  const filteredCryptos = cryptos.filter(
+    (crypto) =>
+      crypto.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      crypto.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <section className="overflow-x-auto max-w-7xl mx-auto">
+      <div className="flex flex-col gap-7 my-4">
+        <h2 className="text-4xl font-normal text-center">
+          Cryptocurrency Prices by Market Cap
+        </h2>
+
+        <TextInput
+          theme={InputTheme}
+          type="text"
+          className="placeholder:text-white"
+          placeholder="Search For a Crypto Currency.."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
       <Table theme={TableTheme}>
         <Table.Head>
           <Table.HeadCell>Coin</Table.HeadCell>
@@ -62,14 +85,14 @@ export default function TableSection({
         </Table.Head>
 
         <Table.Body className="divide-y">
-          {cryptos.length === 0 ? (
+          {filteredCryptos.length === 0 ? (
             <Table.Row>
               <Table.Cell colSpan={4} className="text-center">
                 No data available
               </Table.Cell>
             </Table.Row>
           ) : (
-            cryptos.map((crypto) => (
+            filteredCryptos.map((crypto) => (
               <Table.Row
                 key={crypto.symbol}
                 className="bg-[#16171A] dark:border-gray-700 dark:bg-gray-800"

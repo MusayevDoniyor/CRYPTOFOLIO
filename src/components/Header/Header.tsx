@@ -2,8 +2,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrency } from "../../store/currencySlice";
 import { Button, Dropdown, DropdownItem } from "flowbite-react";
 import { customButtonTheme } from "../../Custom/Themes";
+import { DrawerProps } from "../../types/Types";
 
-export default function Header() {
+export default function Header({ setIsOpen }: DrawerProps) {
   const dispatch = useDispatch();
   const currentCurrency = useSelector(
     (state: any) => state.currencyReducer.currency
@@ -48,6 +49,9 @@ export default function Header() {
                 theme={customButtonTheme}
                 color="customColor"
                 size="customSize"
+                onClick={() => {
+                  setIsOpen(true);
+                }}
               >
                 Watch List
               </Button>

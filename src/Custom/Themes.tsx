@@ -251,3 +251,97 @@ export const PaginationTheme = {
     },
   },
 };
+
+export const DrawerTheme = {
+  root: {
+    base: "fixed z-40 overflow-y-auto bg-[#515151] p-4 transition-transform dark:bg-gray-800",
+    backdrop: "fixed inset-0 z-30 bg-gray-900/50 dark:bg-gray-900/80",
+    edge: "bottom-16",
+    position: {
+      top: {
+        on: "left-0 right-0 top-0 w-full transform-none",
+        off: "left-0 right-0 top-0 w-full -translate-y-full",
+      },
+      right: {
+        on: "right-0 top-0 h-screen w-[350px] transform-none",
+        off: "right-0 top-0 h-screen w-[350px] translate-x-full",
+      },
+      bottom: {
+        on: "bottom-0 left-0 right-0 w-full transform-none",
+        off: "bottom-0 left-0 right-0 w-full translate-y-full",
+      },
+      left: {
+        on: "left-0 top-0 h-screen w-80 transform-none",
+        off: "left-0 top-0 h-screen w-80 -translate-x-full",
+      },
+    },
+  },
+  header: {
+    inner: {
+      closeButton:
+        "absolute end-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-white hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white",
+      closeIcon: "h-4 w-4",
+      titleIcon: "me-2.5 h-4 w-4",
+      titleText:
+        "mb-4 inline-flex items-center text-base font-semibold text-white dark:text-gray-400",
+    },
+    collapsed: {
+      on: "hidden",
+      off: "block",
+    },
+  },
+  items: {
+    base: "",
+  },
+};
+
+export const InputTheme = {
+  base: "flex",
+  addon:
+    "inline-flex items-center rounded border border-0 border-gray-300 py-2 px-3 text-sm text-white dark:border-gray-600 dark:bg-gray-600 dark:text-gray-400 outline:none",
+  field: {
+    base: "relative w-full",
+    icon: {
+      base: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3",
+      svg: "h-5 w-5 text-gray-500 dark:text-gray-400",
+    },
+    rightIcon: {
+      base: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3",
+      svg: "h-5 w-5 text-gray-500 dark:text-gray-400",
+    },
+    input: {
+      base: "block bg-[#14161A] w-full border disabled:cursor-not-allowed disabled:opacity-50",
+      sizes: {
+        sm: "p-2 sm:text-xs",
+        md: "p-2.5 text-sm",
+        lg: "p-4 sm:text-base",
+      },
+      colors: {
+        gray: "border-gray-300 text-white dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500",
+        info: "border-cyan-500 bg-cyan-50 text-cyan-900 placeholder-cyan-700 focus:border-cyan-500 focus:ring-cyan-500 dark:border-cyan-400 dark:bg-cyan-100 dark:focus:border-cyan-500 dark:focus:ring-cyan-500",
+        failure:
+          "border-red-500 bg-red-50 text-red-900 placeholder-red-700 focus:border-red-500 focus:ring-red-500 dark:border-red-400 dark:bg-red-100 dark:focus:border-red-500 dark:focus:ring-red-500",
+        warning:
+          "border-yellow-500 bg-yellow-50 text-yellow-900 placeholder-yellow-700 focus:border-yellow-500 focus:ring-yellow-500 dark:border-yellow-400 dark:bg-yellow-100 dark:focus:border-yellow-500 dark:focus:ring-yellow-500",
+        success:
+          "border-green-500 bg-green-50 text-green-900 placeholder-green-700 focus:border-green-500 focus:ring-green-500 dark:border-green-400 dark:bg-green-100 dark:focus:border-green-500 dark:focus:ring-green-500",
+      },
+      withRightIcon: {
+        on: "pr-10",
+        off: "",
+      },
+      withIcon: {
+        on: "pl-10",
+        off: "",
+      },
+      withAddon: {
+        on: "rounded",
+        off: "rounded",
+      },
+      withShadow: {
+        on: "shadow-sm dark:shadow-sm-light",
+        off: "",
+      },
+    },
+  },
+};

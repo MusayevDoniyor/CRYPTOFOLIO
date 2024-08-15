@@ -2,18 +2,35 @@ import { Carousel } from "flowbite-react";
 import { CarouselTheme } from "../../Custom/Themes";
 import { CryptosinWatchList } from "../../types/Types";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function HeroSection() {
-  const watchingCryptos: CryptosinWatchList[] = JSON.parse(
-    localStorage.getItem("watchingCryptos") || "[]"
+  const [watchingCryptos, setWatchingCryptos] = useState<CryptosinWatchList[]>(
+    () => {
+      return JSON.parse(localStorage.getItem("watchingCryptos") || "[]");
+    }
   );
+
+  const currency = useSelector((state: any) => state.currencyReducer.currency);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setWatchingCryptos(
+        JSON.parse(localStorage.getItem("watchingCryptos") || "[]")
+      );
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
 
   const chunkedCryptos = [];
   for (let i = 0; i < watchingCryptos.length; i += 4) {
     chunkedCryptos.push(watchingCryptos.slice(i, i + 4));
   }
-
-  const currency = useSelector((state: any) => state.currencyReducer.currency);
 
   return (
     <section className="bg-heroImg h-[450px] flex flex-col bg-center bg-no-repeat bg-auto">
