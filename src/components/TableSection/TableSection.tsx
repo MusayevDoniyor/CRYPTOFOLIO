@@ -101,7 +101,11 @@ export default function TableSection({
                   <div className="flex gap-3 items-center">
                     <img
                       className="w-10 h-10 object-cover rounded-full"
-                      src={crypto.image}
+                      src={
+                        typeof crypto.image === "string"
+                          ? crypto.image
+                          : crypto.image.large || ""
+                      }
                       alt={crypto.name}
                     />
                     <div className="flex flex-col gap-1 font-normal">

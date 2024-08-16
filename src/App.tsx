@@ -16,7 +16,10 @@ function App() {
           path="/"
           element={<AppLayout isOpen={isOpen} setIsOpen={setIsOpen} />}
         />
-        {/* <Route path="/:name" element={<SingleCryptoPage />} /> */}
+        <Route
+          path="/:name"
+          element={<SingleCryptoPage isOpen={isOpen} setIsOpen={setIsOpen} />}
+        />
       </Routes>
     </Router>
   );

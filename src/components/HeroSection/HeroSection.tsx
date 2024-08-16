@@ -4,7 +4,11 @@ import { CryptosinWatchList } from "../../types/Types";
 import { useSelector } from "react-redux";
 
 export default function HeroSection() {
-  const watchingCryptos: CryptosinWatchList[] = useSelector(
+  interface CryptosinWatchListInfo extends CryptosinWatchList {
+    name: string;
+  }
+
+  const watchingCryptos: CryptosinWatchListInfo[] = useSelector(
     (state: any) => state.watchingCryptosReducer
   );
 
@@ -47,7 +51,7 @@ export default function HeroSection() {
                   <h2 className="text-base font-bold my-3 flex gap-3 flex-col sm:flex-row">
                     <a
                       className="hover:text-blue-500 transition-colors"
-                      href={`/products/${crypto.symbol}`}
+                      href={`/${crypto.name.toLowerCase()}`}
                     >
                       <span>{crypto.symbol.toUpperCase()}</span>
                     </a>
