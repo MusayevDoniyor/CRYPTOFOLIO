@@ -15,10 +15,10 @@ export default function Buttons({
 
   return (
     <button
-      className={`rounded-md border py-1 pl-2 pr-28 ${
+      className={`rounded-md font-bold text-base border py-1 pl-2 pr-28 ${
         isSelected
-          ? "bg-[#87CEEB] text-white"
-          : "bg-transparent border-[#87CEEB]"
+          ? "bg-[#87CEEB] text-black"
+          : "bg-transparent  text-white  border-[#87CEEB]"
       }`}
       onClick={handleClick}
     >
