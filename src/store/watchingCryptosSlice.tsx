@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Cryptos, CryptosinWatchList } from "../types/Types";
+import { CryptosinWatchList } from "../types/Types";
 
 const loadInitialState = (): CryptosinWatchList[] => {
   const storedData = localStorage.getItem("watchingCryptos");
