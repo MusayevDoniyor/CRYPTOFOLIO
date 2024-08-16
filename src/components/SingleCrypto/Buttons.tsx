@@ -15,11 +15,11 @@ export default function Buttons({
 
   return (
     <button
-      className={`rounded-md font-bold text-base border py-1 pl-2 pr-28 ${
+      className={`rounded-md font-bold text-base border py-2 px-4 flex items-center transition duration-300 ease-in-out ${
         isSelected
           ? "bg-[#87CEEB] text-black"
-          : "bg-transparent  text-white  border-[#87CEEB]"
-      }`}
+          : "bg-transparent text-white border-[#87CEEB]"
+      } hover:bg-[#87CEEB] hover:text-black`}
       onClick={handleClick}
     >
       {children}

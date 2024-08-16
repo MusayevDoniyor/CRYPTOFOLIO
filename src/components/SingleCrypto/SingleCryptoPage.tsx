@@ -129,8 +129,8 @@ const SingleCryptoPage = ({ setIsOpen, isOpen }: DrawerProps) => {
 
   return (
     <>
-      <main className="w-full min-h-screen mx-auto p-4 grid grid-cols-6 gap-4">
-        <section className="col-span-2 border-r-2 border-[#808080] p-4">
+      <main className="w-full min-h-screen mx-auto p-4 grid grid-cols-1 md:grid-cols-6 gap-4">
+        <section className="col-span-2 border-b-2 md:border-r-2 border-[#808080] p-4">
           <img
             src={(typeof image === "string" ? image : image.large) || ""}
             alt={`${cryptoName} logo`}
@@ -161,31 +161,30 @@ const SingleCryptoPage = ({ setIsOpen, isOpen }: DrawerProps) => {
           </div>
         </section>
 
-        <section className="col-span-4 px-8">
-          <LineChart />
+        <section className="col-span-4 px-8 flex flex-col gap-3">
+          <div className="w-full">
+            <LineChart />
+          </div>
 
-          <div className="flex gap-5 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
             <Buttons
               selectedTime={selectedTime}
               setSelectedTime={setSelectedTime}
             >
               24 Hours
             </Buttons>
-
             <Buttons
               selectedTime={selectedTime}
               setSelectedTime={setSelectedTime}
             >
               30 Days
             </Buttons>
-
             <Buttons
               selectedTime={selectedTime}
               setSelectedTime={setSelectedTime}
             >
               3 Months
             </Buttons>
-
             <Buttons
               selectedTime={selectedTime}
               setSelectedTime={setSelectedTime}
