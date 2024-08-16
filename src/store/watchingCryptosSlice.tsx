@@ -12,7 +12,7 @@ const watchingCryptosSlice = createSlice({
   name: "watchingCryptos",
   initialState,
   reducers: {
-    watchCrypto: (state, action: PayloadAction<Cryptos>) => {
+    watchCrypto: (state, action: PayloadAction<any>) => {
       if (!state.some((crypto) => crypto.symbol === action.payload.symbol)) {
         state.push(action.payload);
         localStorage.setItem("watchingCryptos", JSON.stringify(state));
