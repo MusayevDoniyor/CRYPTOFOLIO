@@ -162,9 +162,7 @@ const SingleCryptoPage = ({ setIsOpen, isOpen }: DrawerProps) => {
         </section>
 
         <section className="col-span-4 px-8 flex flex-col gap-3">
-          <div className="w-full">
-            <LineChart />
-          </div>
+          <LineChart />
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5">
             <Buttons
