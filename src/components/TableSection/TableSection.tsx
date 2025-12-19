@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { Pagination, Table, TextInput } from "flowbite-react";
 import { InputTheme, PaginationTheme, TableTheme } from "../../Custom/Themes";
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -7,7 +8,6 @@ import {
   removeCryptoFromWatchList,
   watchCrypto,
 } from "../../store/watchingCryptosSlice";
-import { useState } from "react";
 import { formatCurrency } from "../../utils/formatters";
 import { useNavigate } from "react-router-dom";
 
@@ -17,34 +17,36 @@ interface TableSectionProps {
   setCurrentPage: (page: number) => void;
 }
 
-const Sparkline = ({ data, color }: { data: number[]; color: string }) => {
-  if (!data || data.length === 0) return null;
-  const min = Math.min(...data);
-  const max = Math.max(...data);
-  const range = max - min;
-  const width = 100;
-  const height = 40;
-  const points = data
-    .map((val, i) => {
-      const x = (i / (data.length - 1)) * width;
-      const y = height - ((val - min) / range) * height;
-      return `${x},${y}`;
-    })
-    .join(" ");
+const Sparkline = React.memo(
+  ({ data, color }: { data: number[]; color: string }) => {
+    if (!data || data.length === 0) return null;
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const range = max - min;
+    const width = 100;
+    const height = 40;
+    const points = data
+      .map((val, i) => {
+        const x = (i / (data.length - 1)) * width;
+        const y = height - ((val - min) / range) * height;
+        return `${x},${y}`;
+      })
+      .join(" ");
 
-  return (
-    <svg width={width} height={height} className="overflow-visible">
-      <polyline
-        fill="none"
-        stroke={color}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        points={points}
-      />
-    </svg>
-  );
-};
+    return (
+      <svg width={width} height={height} className="overflow-visible">
+        <polyline
+          fill="none"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          points={points}
+        />
+      </svg>
+    );
+  }
+);
 
 export default function TableSection({
   cryptos,

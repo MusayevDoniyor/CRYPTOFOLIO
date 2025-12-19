@@ -1,9 +1,24 @@
-<svg
-  xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 64 64"
-  width="64px"
-  height="64px"
->
-  <circle cx="32" cy="32" r="30" fill="#f0b90b" stroke="#ffd700" stroke-width="4"/>
-  <path d="M32 16a16 16 0 1 1-11.31 4.69" fill="none" stroke="#333" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="primary-gradient" x1="256" y1="0" x2="256" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+    <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Modern Hexagonal Coin Base -->
+  <path d="M256 32L448 144V368L256 480L64 368V144L256 32Z" stroke="url(#primary-gradient)" stroke-width="24" stroke-linejoin="round" filter="url(#neon-glow)" />
+  
+  <!-- Stylized Monogram C -->
+  <path d="M340 180C320 150 290 135 256 135C189.177 135 135 189.177 135 256C135 322.823 189.177 377 256 377C290 377 320 362 340 332" stroke="white" stroke-width="36" stroke-linecap="round" />
+  
+  <!-- Dynamic Growth Line -->
+  <path d="M220 280L260 230L300 260L360 170" stroke="#fbbf24" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" filter="url(#neon-glow)" />
+  
+  <!-- Subtle Grid Pattern -->
+  <path d="M180 200V312M256 200V312M332 200V312" stroke="white" stroke-opacity="0.1" stroke-width="2" />
 </svg>

@@ -1,7 +1,18 @@
 {
   "name": "cryptofolio",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "author": "Musayev Doniyor",
+  "description": "CRYPTOFOLIO - A premium cryptocurrency tracking platform built with React, Redux, and CoinGecko API.",
+  "keywords": [
+    "crypto",
+    "blockchain",
+    "bitcoin",
+    "ethereum",
+    "portfolio",
+    "tracker",
+    "coin-gecko"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
