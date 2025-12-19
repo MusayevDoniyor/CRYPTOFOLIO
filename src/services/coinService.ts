@@ -1,9 +1,16 @@
 import axios from "axios";
 
-const COINGECKO_BASE_URL = "https://api.coingecko.com/api/v3";
+const COINGECKO_BASE_URL =
+  import.meta.env.VITE_COINGECKO_API_URL || "https://api.coingecko.com/api/v3";
+const API_KEY = import.meta.env.VITE_COINGECKO_API_KEY;
 
 const api = axios.create({
   baseURL: COINGECKO_BASE_URL,
+  headers: API_KEY
+    ? {
+        "x-cg-demo-api-key": API_KEY,
+      }
+    : {},
 });
 
 export const coinService = {
