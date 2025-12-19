@@ -1,96 +1,115 @@
 import { Carousel } from "flowbite-react";
 import { CarouselTheme } from "../../Custom/Themes";
-import { CryptosinWatchList } from "../../types/Types";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { coinService } from "../../services/coinService";
+import { Link } from "react-router-dom";
 
 export default function HeroSection() {
-  interface CryptosinWatchListInfo extends CryptosinWatchList {
-    name: string;
-  }
+  const [trending, setTrending] = useState<any[]>([]);
 
-  const watchingCryptos: CryptosinWatchListInfo[] = useSelector(
-    (state: any) => state.watchingCryptosReducer
-  );
+  useEffect(() => {
+    const fetchTrending = async () => {
+      try {
+        const data = await coinService.getTrendingCoins();
+        setTrending(data.coins);
+      } catch (error) {
+        console.error("Error fetching trending coins:", error);
+      }
+    };
+    fetchTrending();
+  }, []);
 
-  const currency = useSelector((state: any) => state.currencyReducer.currency);
-
-  const chunkedCryptos = [];
-  for (let i = 0; i < watchingCryptos.length; i += 4) {
-    chunkedCryptos.push(watchingCryptos.slice(i, i + 4));
+  const chunkedTrending = [];
+  for (let i = 0; i < trending.length; i += 4) {
+    chunkedTrending.push(trending.slice(i, i + 4));
   }
 
   return (
-    <section className="bg-heroImg h-[450px] flex flex-col bg-center bg-no-repeat bg-auto">
-      <div className="text-center pt-20">
-        <h1 className="text-[#87CEEB] font-bold text-6xl md:text-5xl sm:text-4xl">
-          CRYPTOFOLIO WATCH LIST
+    <section className="relative h-[550px] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background with glow effects */}
+      <div className="absolute inset-0 bg-[#0b0d11]">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-cyan-500/10 blur-[120px] rounded-full"></div>
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-blue-600/5 blur-[100px] rounded-full"></div>
+      </div>
+
+      <div className="relative z-10 text-center mb-12 px-4">
+        <h1 className="text-6xl md:text-7xl font-black tracking-tighter mb-4">
+          <span className="text-white">CRYPTO</span>
+          <span className="premium-gradient-text uppercase">folio</span>
         </h1>
-        <p className="text-[#A9A9A9] font-medium text-sm mt-2 md:text-base">
-          Get all the Info regarding your favorite Crypto Currency
+        <p className="text-gray-400 font-medium text-lg md:text-xl max-w-2xl mx-auto">
+          Track the pulse of the market. Get real-time insights on trending
+          assets and your personalized portfolio.
         </p>
       </div>
 
-      {chunkedCryptos.length > 0 ? (
-        <Carousel theme={CarouselTheme} slideInterval={2000}>
-          {chunkedCryptos.map((group, index) => (
-            <div
-              key={index}
-              className="flex flex-col gap-2 lg:flex-row space-x-4 justify-evenly items-center p-4 rounded-lg shadow-md"
-            >
-              {group.map((crypto) => (
-                <div
-                  key={crypto.symbol}
-                  className="flex flex-col items-center p-2"
-                >
-                  <img
-                    src={crypto.image}
-                    alt={`${crypto.symbol} logo`}
-                    className="w-28 h-28 rounded-md mt-1 object-cover"
-                  />
-
-                  <h2 className="text-base font-bold my-3 flex gap-3 flex-col sm:flex-row">
-                    <a
-                      className="hover:text-blue-500 transition-colors"
-                      href={`/${crypto.name.toLowerCase()}`}
+      <div className="relative z-10 w-full max-w-7xl px-4">
+        {trending.length > 0 ? (
+          <Carousel theme={CarouselTheme} slideInterval={3000} className="h-64">
+            {chunkedTrending.map((group, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-around h-full py-4"
+              >
+                {group.map((item) => {
+                  const coin = item.item;
+                  return (
+                    <Link
+                      to={`/${coin.id}`}
+                      key={coin.id}
+                      className="group flex flex-col items-center p-6 glass-card hover:bg-white/10 transition-all duration-300 transform hover:-translate-y-2 w-64"
                     >
-                      <span>{crypto.symbol.toUpperCase()}</span>
-                    </a>
+                      <div className="relative">
+                        <div className="absolute inset-0 bg-cyan-400 blur-md opacity-0 group-hover:opacity-20 transition-opacity"></div>
+                        <img
+                          src={coin.large}
+                          alt={`${coin.name} logo`}
+                          className="w-20 h-20 mb-4 object-contain relative"
+                        />
+                      </div>
 
-                    <span
-                      className={`${
-                        crypto.price_change_percentage_24h > 0
-                          ? "text-[#0ECB81]"
-                          : "text-[#FF0000]"
-                      }`}
-                    >
-                      {crypto.price_change_percentage_24h > 0
-                        ? `+${crypto.price_change_percentage_24h.toFixed(2)}`
-                        : crypto.price_change_percentage_24h.toFixed(2)}
-                      %
-                    </span>
-                  </h2>
-
-                  <p className="text-lg">
-                    <strong>
-                      {currency === "USD"
-                        ? "$"
-                        : currency === "AED"
-                        ? "د.إ"
-                        : "₺"}
-                      {"   "}
-                      {crypto.market_cap.toLocaleString()}
-                    </strong>
-                  </p>
-                </div>
-              ))}
+                      <div className="flex flex-col items-center">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className="text-lg font-bold text-white uppercase">
+                            {coin.symbol}
+                          </span>
+                          <span
+                            className={`text-sm font-bold ${
+                              coin.data.price_change_percentage_24h?.usd > 0
+                                ? "text-emerald-400"
+                                : "text-rose-400"
+                            }`}
+                          >
+                            {coin.data.price_change_percentage_24h?.usd > 0
+                              ? "+"
+                              : ""}
+                            {coin.data.price_change_percentage_24h?.usd?.toFixed(
+                              2
+                            )}
+                            %
+                          </span>
+                        </div>
+                        <span className="text-cyan-400 font-bold text-xl">
+                          {coin.data.price}
+                        </span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            ))}
+          </Carousel>
+        ) : (
+          <div className="flex justify-center items-center h-32">
+            <div className="animate-pulse flex space-x-4">
+              <div className="rounded-full bg-white/5 h-12 w-12"></div>
+              <div className="flex-1 space-y-6 py-1">
+                <div className="h-2 bg-white/5 rounded"></div>
+              </div>
             </div>
-          ))}
-        </Carousel>
-      ) : (
-        <div className="text-center text-gray-500 mt-4">
-          <p>No cryptocurrencies in your watchlist.</p>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </section>
   );
 }

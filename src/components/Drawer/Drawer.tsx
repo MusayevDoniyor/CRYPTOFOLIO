@@ -3,6 +3,7 @@ import { CryptosinWatchList, DrawerProps } from "../../types/Types";
 import { DrawerTheme } from "../../Custom/Themes";
 import { useSelector, useDispatch } from "react-redux";
 import { removeCryptoFromWatchList } from "../../store/watchingCryptosSlice";
+import { formatCurrency } from "../../utils/formatters";
 import Swal from "sweetalert2";
 
 export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
@@ -22,11 +23,14 @@ export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
 
   const handleRemove = (symbol: string) => {
     Swal.fire({
+      toast: true,
       position: "top-end",
       icon: "success",
-      title: "Crypto removed from WatchList",
+      title: "Removed from Watchlist",
       showConfirmButton: false,
       timer: 1500,
+      background: "#1e222d",
+      color: "#fff",
     });
     dispatch(removeCryptoFromWatchList({ symbol }));
   };
@@ -37,46 +41,56 @@ export default function WatchListDrawer({ isOpen, setIsOpen }: DrawerProps) {
       open={isOpen}
       onClose={handleClose}
       position="right"
+      className="bg-[#0b0d11]/fb backdrop-blur-xl border-l border-white/10"
     >
-      <Drawer.Header title="WatchList" />
+      <Drawer.Header
+        title="WATCHLIST"
+        titleIcon={() => null}
+        className="text-cyan-400 font-black tracking-widest text-xl border-b border-white/10 pb-4"
+      />
 
-      <Drawer.Items>
+      <Drawer.Items className="mt-6 px-4">
         {watchingCryptos.length > 0 ? (
-          <div className="bg-[#515151] grid grid-cols-1 gap-2 md:grid-cols-2 px-2 md:px-4">
+          <div className="flex flex-col gap-4">
             {watchingCryptos.map((crypto) => (
               <div
-                key={crypto.symbol}
-                className="px-3 py-3 bg-[#14161A] rounded-xl text-center"
+                key={crypto.id || crypto.symbol}
+                className="glass-card p-4 flex flex-col items-center group relative overflow-hidden transition-all hover:bg-white/10"
               >
                 <img
-                  className="rounded-3xl"
+                  className="w-20 h-20 object-contain mb-3 transition-transform group-hover:scale-110"
                   src={crypto.image}
                   alt={`${crypto.symbol} logo`}
                 />
 
-                <p className="py-3 flex justify-center gap-1 text-center">
-                  <span>
-                    {currency === "USD"
-                      ? "$"
-                      : currency === "AED"
-                      ? "د.إ"
-                      : "₺"}
+                <div className="text-center w-full">
+                  <span className="text-white font-bold uppercase block mb-1">
+                    {crypto.symbol}
                   </span>
 
-                  <span>{crypto.current_price.toLocaleString()}</span>
-                </p>
+                  <span className="text-cyan-400 font-bold text-lg block mb-4">
+                    {formatCurrency(crypto.current_price, currency)}
+                  </span>
 
-                <button
-                  className="bg-[#FF0000] text-white py-0.5 px-3 font-normal text-xl"
-                  onClick={() => handleRemove(crypto.symbol)}
-                >
-                  Remove
-                </button>
+                  <button
+                    className="w-full bg-rose-500/20 text-rose-500 hover:bg-rose-500 hover:text-white py-2 rounded-lg font-bold text-xs uppercase tracking-widest transition-all"
+                    onClick={() => handleRemove(crypto.symbol)}
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
             ))}
           </div>
         ) : (
-          <p>No Cryptos in WatchList</p>
+          <div className="text-center py-20">
+            <p className="text-gray-500 italic">
+              Your watchlist is currently empty.
+            </p>
+            <p className="text-gray-600 text-sm mt-2">
+              Add coins from the market table to track them here.
+            </p>
+          </div>
         )}
       </Drawer.Items>
     </Drawer>

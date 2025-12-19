@@ -15,11 +15,11 @@ export default function Buttons({
 
   return (
     <button
-      className={`rounded-md font-bold text-base border py-2 px-4 flex items-center transition duration-300 ease-in-out ${
+      className={`rounded-xl font-bold text-sm uppercase tracking-widest py-3 px-6 transition-all duration-300 border ${
         isSelected
-          ? "bg-[#87CEEB] text-black"
-          : "bg-transparent text-white border-[#87CEEB]"
-      } hover:bg-[#87CEEB] hover:text-black`}
+          ? "bg-cyan-400 text-black border-cyan-400 shadow-[0_0_15px_rgba(34,211,238,0.4)]"
+          : "bg-transparent text-white border-white/20 hover:border-cyan-400 hover:text-cyan-400"
+      } active:scale-95`}
       onClick={handleClick}
     >
       {children}

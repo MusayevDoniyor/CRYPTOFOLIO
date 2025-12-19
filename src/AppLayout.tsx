@@ -1,11 +1,6 @@
-import api from "./api/api";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getCryptos,
-  getCryptosSuccess,
-  getCryptosFailure,
-} from "./store/cryptosSlice";
+import { fetchCryptos } from "./store/cryptosSlice";
 import HeroSection from "./components/HeroSection/HeroSection";
 import TableSection from "./components/TableSection/TableSection";
 import { Alert, Spinner } from "flowbite-react";
@@ -15,7 +10,7 @@ import WatchListDrawer from "./components/Drawer/Drawer";
 import { DrawerProps } from "./types/Types";
 
 function AppLayout({ isOpen, setIsOpen }: DrawerProps) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const cryptos = useSelector((state: any) => state.cryptosReducer.cryptos);
   const loading = useSelector((state: any) => state.cryptosReducer.loading);
@@ -26,21 +21,7 @@ function AppLayout({ isOpen, setIsOpen }: DrawerProps) {
   const perPage = 10;
 
   useEffect(() => {
-    const fetchCryptos = async () => {
-      dispatch(getCryptos());
-
-      try {
-        const res = await api.get(
-          `/coins/markets?vs_currency=${currency}&order=gecko_desc&per_page=${perPage}&page=${currentPage}&sparkline=false&price_change_percentage=24h`
-        );
-        dispatch(getCryptosSuccess(res.data));
-      } catch (error: any) {
-        console.error(error.message);
-        dispatch(getCryptosFailure(error.message));
-      }
-    };
-
-    fetchCryptos();
+    dispatch(fetchCryptos({ currency, perPage, page: currentPage }));
   }, [currency, currentPage, perPage, dispatch]);
 
   return (
